@@ -1,31 +1,39 @@
-import React, { FC, PropsWithChildren, useEffect, useState } from 'react';
-import type { Decorator, Preview } from '@storybook/react';
-import { themes, breakpoints, StyleSheet } from '../src/core';
-import { themeDark, themeLight } from './themes';
-import { DocsContainer as BaseContainer, DocsContainerProps } from '@storybook/blocks';
-import { DARK_MODE_EVENT_NAME, useDarkMode } from 'storybook-dark-mode';
-import { addons, useArgs, useGlobals, useStoryContext } from 'storybook/internal/preview-api';
-import { EmulatorRenderer } from '@storybook/native-components';
-import { Box } from '../build';
-import { UnistylesRuntime } from 'react-native-unistyles';
+import React, { FC, PropsWithChildren, useEffect, useState } from "react";
+import type { Decorator, Preview } from "@storybook/react";
+import { themes, breakpoints, StyleSheet } from "../src/core";
+import { themeDark, themeLight } from "./themes";
+import {
+  DocsContainer as BaseContainer,
+  DocsContainerProps,
+} from "@storybook/blocks";
+import { DARK_MODE_EVENT_NAME, useDarkMode } from "storybook-dark-mode";
+import {
+  addons,
+  useArgs,
+  useGlobals,
+  useStoryContext,
+} from "storybook/internal/preview-api";
+import { EmulatorRenderer } from "@storybook/native-components";
+import { Box } from "../build";
+import { UnistylesRuntime } from "react-native-unistyles";
 
-const lightColour = '#fff';
-const darkColour = '#1d1d1d';
+const lightColour = "#fff";
+const darkColour = "#1d1d1d";
 
 const ANDROID_API_KEY = process.env.ANDROID_API_KEY; // || 'ncapxlszjomiyae42o3hr2hr34';
 const IOS_API_KEY = process.env.IOS_API_KEY; // || 'w7k6nlib4xevw7fxrqp6now7iu';
 
 const urlParams = new URLSearchParams(window.location.search);
-const args = urlParams.get('args');
-const argsArray = args?.split(',');
-const darkModeArg = argsArray?.find(arg => arg.startsWith('darkMode:'));
-const [, darkModeValue] = darkModeArg?.split(':') ?? [];
+const args = urlParams.get("args");
+const argsArray = args?.split(",");
+const darkModeArg = argsArray?.find((arg) => arg.startsWith("darkMode:"));
+const [, darkModeValue] = darkModeArg?.split(":") ?? [];
 
 StyleSheet.configure({
   breakpoints,
   themes: themes,
   settings: {
-    initialTheme: darkModeValue === '!true' ? 'dark' : 'light',
+    initialTheme: darkModeValue === "!true" ? "dark" : "light",
     adaptiveThemes: false,
     CSSVars: false,
   },
@@ -34,14 +42,14 @@ StyleSheet.configure({
 let channel = addons.getChannel();
 
 export const decorators: Decorator[] = [
-  Story => {
+  (Story) => {
     const [globals] = useGlobals();
     const [args, setArgs] = useArgs();
-    const colorScheme = useDarkMode() ? 'dark' : 'light';
+    const colorScheme = useDarkMode() ? "dark" : "light";
     const { id, viewMode } = useStoryContext();
 
-    const storyListener = darkMode => {
-      UnistylesRuntime.setTheme(darkMode ? 'dark' : 'light');
+    const storyListener = (darkMode) => {
+      UnistylesRuntime.setTheme(darkMode ? "dark" : "light");
 
       setArgs({
         ...args,
@@ -50,14 +58,16 @@ export const decorators: Decorator[] = [
     };
 
     useEffect(() => {
-      const storybookContainer = document.getElementsByTagName('body')[0];
+      const storybookContainer = document.getElementsByTagName("body")[0];
       if (storybookContainer) {
-        if (args.surface === 'midnight' || args.inverted) {
-          storybookContainer.style.backgroundColor = 'purple';
-        } else if (args.surface === 'purple') {
-          storybookContainer.style.backgroundColor = 'violet';
+        if (args.surface === "midnight" || args.inverted) {
+          storybookContainer.style.backgroundColor = "purple";
+        } else if (args.surface === "purple") {
+          storybookContainer.style.backgroundColor = "violet";
         } else {
-          storybookContainer.style.backgroundColor = !args.darkMode ? lightColour : darkColour;
+          storybookContainer.style.backgroundColor = !args.darkMode
+            ? lightColour
+            : darkColour;
         }
       }
     }, [args.darkMode, args.surface, args.inverted]);
@@ -67,26 +77,12 @@ export const decorators: Decorator[] = [
       channel.addListener(DARK_MODE_EVENT_NAME, storyListener);
       setArgs({
         ...args,
-        darkMode: colorScheme === 'dark',
+        darkMode: colorScheme === "dark",
       });
       return () => channel.removeListener(DARK_MODE_EVENT_NAME, storyListener);
     }, [colorScheme]);
 
-    return viewMode === 'story' ? (
-      <Box>
-        {globals.device !== 'web' ? (
-          <EmulatorRenderer
-            platform={globals.device}
-            deepLinkBaseUrl="native-ui://story"
-            apiKey={(globals.device === 'android' ? ANDROID_API_KEY : IOS_API_KEY) || ''}
-            storyParams={{ storyId: id, colourMode: args.darkMode ? 'dark' : 'light' }}
-            extraParams={{ ...args }}
-          />
-        ) : (
-          <Story />
-        )}
-      </Box>
-    ) : (
+    return (
       <Box>
         <Story />
       </Box>
@@ -94,12 +90,15 @@ export const decorators: Decorator[] = [
   },
 ];
 
-export const DocsContainer: FC<PropsWithChildren<DocsContainerProps>> = ({ children, context }) => {
+export const DocsContainer: FC<PropsWithChildren<DocsContainerProps>> = ({
+  children,
+  context,
+}) => {
   const [isDark, setDark] = useState(false);
 
-  const updateDark = dark => {
+  const updateDark = (dark) => {
     setDark(dark);
-    UnistylesRuntime.setTheme(dark ? 'dark' : 'light');
+    UnistylesRuntime.setTheme(dark ? "dark" : "light");
   };
 
   useEffect(() => {
@@ -116,7 +115,7 @@ export const DocsContainer: FC<PropsWithChildren<DocsContainerProps>> = ({ child
 
 const preview: Preview = {
   globals: {
-    device: 'web',
+    device: "web",
   },
   parameters: {
     docs: {
@@ -140,52 +139,52 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
-          'Introduction',
-          'Getting Started',
-          'All components',
-          'Guides',
+          "Introduction",
+          "Getting Started",
+          "All components",
+          "Guides",
           [
-            'Using Storybook',
-            'Tokens',
-            'Styling',
+            "Using Storybook",
+            "Tokens",
+            "Styling",
             [
-              'Overview',
-              'Theme Tokens',
-              'createStyleSheet',
-              'useStyles',
-              'Dynamic Functions',
-              'Color Mode',
-              'Fonts',
+              "Overview",
+              "Theme Tokens",
+              "createStyleSheet",
+              "useStyles",
+              "Dynamic Functions",
+              "Color Mode",
+              "Fonts",
             ],
-            'Colour System',
-            ['Introduction', 'Common', 'Colors Light'],
+            "Colour System",
+            ["Introduction", "Common", "Colors Light"],
           ],
-          'Components',
+          "Components",
           [
-            'Alert',
-            'Badge',
-            'Box',
-            'Button',
-            'Card',
-            'Center',
-            'Checkbox',
-            'Divider',
-            'Form Field',
-            'Heading',
-            'HStack',
-            'Icon Button',
-            'Icons',
-            'Input',
-            'List',
-            'Pressable',
-            'Radio',
-            'Skeleton',
-            'Spinner',
-            'Switch',
-            'Text',
-            'VStack',
+            "Alert",
+            "Badge",
+            "Box",
+            "Button",
+            "Card",
+            "Center",
+            "Checkbox",
+            "Divider",
+            "Form Field",
+            "Heading",
+            "HStack",
+            "Icon Button",
+            "Icons",
+            "Input",
+            "List",
+            "Pressable",
+            "Radio",
+            "Skeleton",
+            "Spinner",
+            "Switch",
+            "Text",
+            "VStack",
           ],
-          'Lab Components',
+          "Lab Components",
         ],
       },
     },

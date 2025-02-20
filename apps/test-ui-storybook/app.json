@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "native-ui-storybook",
-    "slug": "native-ui-storybook",
+    "name": "test-ui-storybook",
+    "slug": "test-ui-storybook",
     "newArchEnabled": true
   }
 }

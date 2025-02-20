@@ -1,8 +1,11 @@
 /** @type{import("@storybook/react-native").StorybookConfig} */
 module.exports = {
   stories: [
-    '../stories/**/*.stories.?(ts|tsx|js|jsx)',
-    '../../../packages/native-ui/**/*.stories.?(ts|tsx|js|jsx)',
+    "../stories/**/*.stories.?(ts|tsx|js|jsx)",
+    "../../../packages/test-ui/**/*.stories.?(ts|tsx|js|jsx)",
   ],
-  addons: ['@storybook/addon-ondevice-controls', '@storybook/addon-ondevice-actions'],
+  addons: [
+    "@storybook/addon-ondevice-controls",
+    "@storybook/addon-ondevice-actions",
+  ],
 };

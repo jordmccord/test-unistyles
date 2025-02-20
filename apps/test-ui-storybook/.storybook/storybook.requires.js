@@ -21,13 +21,13 @@ const normalizedStories = [
   },
   {
     titlePrefix: "",
-    directory: "../../packages/native-ui",
+    directory: "../../packages/test-ui",
     files: "**/*.stories.?(ts|tsx|js|jsx)",
     importPathMatcher:
       /^\.(?:(?:^|\/|(?:(?:(?!(?:^|\/)\.).)*?)\/)(?!\.)(?=.)[^/]*?\.stories\.(?:ts|tsx|js|jsx)?)$/,
 
     req: require.context(
-      "../../../packages/native-ui",
+      "../../../packages/test-ui",
       true,
       /^\.(?:(?:^|\/|(?:(?:(?!(?:^|\/)\.).)*?)\/)(?!\.)(?=.)[^/]*?\.stories\.(?:ts|tsx|js|jsx)?)$/
     ),

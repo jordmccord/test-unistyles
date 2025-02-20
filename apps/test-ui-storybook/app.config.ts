@@ -39,10 +39,6 @@ export default ({ config }) => ({
   ],
   extra: {
     storybookEnabled: "true",
-    eas: {
-      projectId: "5d5d04e2-5607-4d40-84a9-4d1bdf331ae3",
-      owner: "unistyles-test",
-    },
   },
   splash: {
     image: "./assets/splash.png",
