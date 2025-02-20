@@ -1,0 +1,10 @@
+!build
+src
+./packages
+.vercel
+./turbo
+./packages
+./scripts
+./docs
+./src/components/**/*.stories.tsx
+./src/components/**/*.docs.mdx
