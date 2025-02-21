@@ -3,11 +3,18 @@ export default ({ config }) => ({
   name: "Test UI",
   slug: "test-ui",
   scheme: "test-ui",
-  owner: "unistyles-test",
+  owner: "jord-uw",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/images/icon.png",
+  extra: {
+    storybookEnabled: true,
+    eas: {
+      projectId: "8d90953c-8012-4d0c-bc37-fcfc280c4861",
+    },
+  },
   plugins: [
+    "expo-font",
     [
       "expo-xml-font",
       [
@@ -37,28 +44,20 @@ export default ({ config }) => ({
       ],
     ],
   ],
-  extra: {
-    storybookEnabled: "true",
-  },
-  splash: {
-    image: "./assets/splash.png",
-    resizeMode: "contain",
-    backgroundColor: "#ffffff",
-  },
   updates: {
     fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "com.unistyles-test.test-ui",
+    bundleIdentifier: "com.unistylestest.testui",
     infoPlist: {
       LSApplicationQueriesSchemes: ["test-ui"],
       ITSAppUsesNonExemptEncryption: false,
     },
   },
   android: {
-    package: "com.unistyles-test.testui",
+    package: "com.unistylestest.testui",
     adaptiveIcon: {
       foregroundImage: "./assets/images/adaptive-icon.png",
       backgroundColor: "#ffffff",
