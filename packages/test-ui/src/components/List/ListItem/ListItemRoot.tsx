@@ -1,19 +1,19 @@
-import React, { forwardRef, useMemo } from 'react';
-import type ListItemProps from './ListItem.props';
-import { ChevronRight01MediumIcon } from '../Icons';
-import { Skeleton } from '../../Skeleton';
-import { useListContext } from '../List.context';
-import { StyleSheet } from 'react-native-unistyles';
-import { Pressable, ViewStyle } from 'react-native';
-import { IListItemContext, ListItemContext } from './ListItem.context';
-import type { PressableRef } from '../../../types';
-import ListItemContent from './ListItemContent';
-import ListItemLeadingContent from './ListItemLeadingContent';
-import ListItemText from './ListItemText';
-import ListItemSupportingText from './ListItemSupportingText';
-import ListItemTrailingContent from './ListItemTrailingContent';
-import ListItemTrailingIcon from './ListItemTrailingIcon';
-import { Divider } from '../../Divider';
+import React, { forwardRef, useMemo } from "react";
+import type ListItemProps from "./ListItem.props";
+import { ChevronRight01MediumIcon } from "../../Icons";
+import { Skeleton } from "../../Skeleton";
+import { useListContext } from "../List.context";
+import { StyleSheet } from "react-native-unistyles";
+import { Pressable, ViewStyle } from "react-native";
+import { IListItemContext, ListItemContext } from "./ListItem.context";
+import type { PressableRef } from "../../../types";
+import ListItemContent from "./ListItemContent";
+import ListItemLeadingContent from "./ListItemLeadingContent";
+import ListItemText from "./ListItemText";
+import ListItemSupportingText from "./ListItemSupportingText";
+import ListItemTrailingContent from "./ListItemTrailingContent";
+import ListItemTrailingIcon from "./ListItemTrailingIcon";
+import { Divider } from "../../Divider";
 
 const ListItemRoot = forwardRef<
   PressableRef,
@@ -77,7 +77,9 @@ const ListItemRoot = forwardRef<
             />
             <Skeleton width="100%" height={16} />
           </ListItemContent>
-          {onPress || trailingContent ? <Skeleton width={24} height={24} /> : null}
+          {onPress || trailingContent ? (
+            <Skeleton width={24} height={24} />
+          ) : null}
         </Pressable>
       );
     }
@@ -99,16 +101,22 @@ const ListItemRoot = forwardRef<
           ) : (
             <>
               {leadingContent ? (
-                <ListItemLeadingContent>{leadingContent}</ListItemLeadingContent>
+                <ListItemLeadingContent>
+                  {leadingContent}
+                </ListItemLeadingContent>
               ) : null}
               <ListItemContent>
                 <ListItemText>{text}</ListItemText>
                 {supportingText ? (
-                  <ListItemSupportingText>{supportingText}</ListItemSupportingText>
+                  <ListItemSupportingText>
+                    {supportingText}
+                  </ListItemSupportingText>
                 ) : null}
               </ListItemContent>
               {trailingContent ? (
-                <ListItemTrailingContent>{trailingContent}</ListItemTrailingContent>
+                <ListItemTrailingContent>
+                  {trailingContent}
+                </ListItemTrailingContent>
               ) : !!onPress ? (
                 <ListItemTrailingContent>
                   <ListItemTrailingIcon as={ChevronRight01MediumIcon} />
@@ -123,23 +131,30 @@ const ListItemRoot = forwardRef<
   }
 );
 
-ListItemRoot.displayName = 'ListItemRoot';
+ListItemRoot.displayName = "ListItemRoot";
 
-const styles = StyleSheet.create(theme => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
     padding: theme.space[4],
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: theme.space[3],
   },
-  extraStyles: (showPressed?: boolean, active?: boolean, disabled?: boolean) => {
+  extraStyles: (
+    showPressed?: boolean,
+    active?: boolean,
+    disabled?: boolean
+  ) => {
     if (!showPressed || disabled) {
       return {
-        cursor: 'auto',
+        cursor: "auto",
       };
     }
     if (showPressed && active) {
       return {
-        backgroundColor: theme.colorMode === 'light' ? theme.colors.grey75 : theme.colors.grey150,
+        backgroundColor:
+          theme.colorMode === "light"
+            ? theme.colors.grey75
+            : theme.colors.grey150,
       };
     }
     return {};
