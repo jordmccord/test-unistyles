@@ -1,33 +1,33 @@
-import React from 'react';
-import { Switch } from '.';
-import { Meta, StoryObj } from '@storybook/react';
-import { VStack } from '../VStack';
-import { VariantTitle } from '../../../docs/components';
+import React, { useEffect } from "react";
+import { Switch } from ".";
+import { Meta, StoryObj } from "@storybook/react";
+import { VStack } from "../VStack";
+import { VariantTitle } from "../../../docs/components";
 
 const meta = {
-  title: 'Stories / Switch',
+  title: "Stories / Switch",
   component: Switch,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
   argTypes: {
     value: {
-      control: 'boolean',
-      description: 'Use this value to set the Switch value.',
+      control: "boolean",
+      description: "Use this value to set the Switch value.",
     },
     size: {
-      control: 'select',
-      options: ['medium', 'small'],
-      description: 'Use this value to set the Switch size.',
+      control: "select",
+      options: ["medium", "small"],
+      description: "Use this value to set the Switch size.",
     },
     disabled: {
-      control: 'boolean',
-      description: 'Use this value to disable the Switch.',
+      control: "boolean",
+      description: "Use this value to disable the Switch.",
     },
   },
   args: {
     value: false,
-    size: 'medium',
+    size: "medium",
     disabled: false,
   },
 } satisfies Meta<typeof Switch>;
@@ -35,7 +35,18 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Playground: Story = {};
+export const Playground: Story = {
+  render: ({ value, ...args }) => {
+    const [toggled, setToggled] = React.useState(value);
+    const handleToggle = () => {
+      setToggled((prev) => !prev);
+    };
+    useEffect(() => {
+      setToggled(value);
+    }, [value]);
+    return <Switch {...args} value={toggled} onValueChange={handleToggle} />;
+  },
+};
 
 export const Variants: Story = {
   render: () => (
